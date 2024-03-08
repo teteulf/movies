@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import MovieCard from "./movieCard";
+import ParticlesComponent from "./particlesBackground";
 
 export default function Home() {
   const [hypeMovies, setHypeMovies] = useState([]);
@@ -24,14 +25,17 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-screen flex justify-center items-center">
-      <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-20 p-6 text-center">
-        {hypeMovies === 0 && <p>Loading...</p>}
-        {hypeMovies.length > 0 &&
-          hypeMovies.map((element) => (
-            <MovieCard key={element.id} element={element} />
-          ))}
+    <>
+      <ParticlesComponent id='particles' />
+      <div className="w-screen flex justify-center items-center">
+        <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-20 p-6 text-center">
+          {hypeMovies === 0 && <p>Loading...</p>}
+          {hypeMovies.length > 0 &&
+            hypeMovies.map((element) => (
+              <MovieCard key={element.id} element={element} className="z-1" />
+            ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
