@@ -22,11 +22,12 @@ export default function Home() {
   useEffect(() => {
     const moviesUrl = `${apiUrl}now_playing?${apiKey}`;
     getHypeMovies(moviesUrl);
+    console.log(getHypeMovies(moviesUrl));
   }, []);
 
   return (
     <>
-      <ParticlesComponent id='particles' />
+      <ParticlesComponent id="particles" />
       <div className="w-screen flex justify-center items-center">
         <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-20 p-6 text-center">
           {hypeMovies === 0 && <p>Loading...</p>}
