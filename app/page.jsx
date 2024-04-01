@@ -1,5 +1,6 @@
 "use client";
 
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useState, useEffect } from "react";
 import MovieCard from "./movieCard";
 import ParticlesComponent from "./particlesBackground";
@@ -56,15 +57,23 @@ export default function Home() {
   return (
     <>
       <ParticlesComponent id="particles" />
-      <div className="w-full md:w-screen flex justify-center items-center">
-        <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-20 p-6 text-center">
+      <div className="w-full md:w-screen flex justify-center items-center pt-6">
+        <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-20 text-center ">
           {hypeMovies && hypeMovies.length === 0 && (
-            <p className="text-white">Loading...</p>
+            <div className="w-screen h-screen flex justify-center items-center -mt-[45px]">
+              <AiOutlineLoading3Quarters
+                size={150}
+                color="white"
+                className="animate-[spin_2s_linear_infinite]"
+              />
+            </div>
           )}
           {hypeMovies &&
             hypeMovies.length > 0 &&
             hypeMovies.map((element) => (
-              <MovieCard key={element.id} element={element} className="z-1" />
+              <div className="">
+                <MovieCard key={element.id} element={element} />
+              </div>
             ))}
         </div>
       </div>

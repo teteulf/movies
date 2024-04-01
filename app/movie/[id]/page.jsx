@@ -10,6 +10,8 @@ import ParticlesComponent from "@/app/particlesBackground";
 
 export default function AboutMovie() {
   const { id } = useParams();
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const [buttonText, setButtonText] = useState("");
   const [Movie, setMovie] = useState();
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
@@ -29,6 +31,34 @@ export default function AboutMovie() {
     const movieUrl = `${apiUrl}${id}?${apiKey}`;
     getMovies(movieUrl);
   }, []);
+
+  const movieExistsInList = () => {
+    const movieList = JSON.parse(localStorage.getItem("movieList")) || [];
+    return movieList.some((movie) => movie.title === Movie.title);
+  };
+
+  useEffect(() => {
+    if (Movie) {
+      setButtonText(
+        movieExistsInList()
+          ? "Movie added to movie list"
+          : "Add movie to movie list"
+      );
+    }
+  }, [Movie]);
+
+  const addMovie = () => {
+    if (!buttonClicked && Movie) {
+      if (!movieExistsInList()) {
+        const movieList = JSON.parse(localStorage.getItem("movieList")) || [];
+        movieList.push(Movie);
+        localStorage.setItem("movieList", JSON.stringify(movieList));
+        setButtonText("Movie Added to movie list");
+        setButtonClicked(true);
+      }
+    }
+  };
+
   return (
     <>
       <ParticlesComponent id="particles" />
@@ -74,10 +104,13 @@ export default function AboutMovie() {
             </div>
           </section>
         </main>
-        <div className="flex flex-col items-center xl:flex-row pb-8 justify-center gap-8 xl:gap-[2%] mt-8  xl:-ml-[20%]">
-          <button className="flex items-center justify-center gap-2 text-white border py-6 xl:py-2 font-bold hover:bg-[#0cb9f228] rounded-xl w-60 md:w-[19rem] xl:w-60 b-24 bg-slate-950 bg-opacity-60 border-[#0cb7f2] shadow-blue-shadow ">
-            <FaStar />
-            Add movie to movielist
+        <div className="flex flex-col items-center xl:flex-row pb-8 justify-center gap-8 xl:gap-[2%] mt-8 xl:-ml-[20%]">
+          <button
+            id="addButton"
+            onClick={addMovie}
+            className="flex items-center justify-center gap-2 text-white border py-6 xl:py-2 font-bold hover:bg-[#0cb9f228] rounded-xl w-60 md:w-[19rem] xl:w-60 b-24 bg-slate-950 bg-opacity-60 border-[#0cb7f2] shadow-blue-shadow "
+          >
+            {buttonText}
           </button>
           <Link
             href={"/"}

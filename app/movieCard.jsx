@@ -1,7 +1,7 @@
 import { FaStar } from "react-icons/fa";
 import Link from "next/link";
 
-export default function MovieCard({ element, showLink = true }) {
+export default function MovieCard({ element }) {
   const apiImage = process.env.NEXT_PUBLIC_API_IMG;
   return (
     <div className="flex flex-col gap-4 items-center p-[10px] pt-[18px] rounded-xl bg-slate-950 bg-opacity-60 border-[1.5px] border-[#0cb7f2] shadow-blue-shadow">
