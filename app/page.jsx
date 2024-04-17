@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import MovieCard from "./movieCard";
 import ParticlesComponent from "./particlesBackground";
 import { FiTriangle } from "react-icons/fi";
+import { ThemeProvider } from "./hooks/useContext";
 
 export default function Home() {
   const [hypeMovies, setHypeMovies] = useState([]);
@@ -28,6 +29,7 @@ export default function Home() {
       const response = await fetch(fetchPage);
       const data = await response.json();
       setHypeMovies(data.results);
+      console.log(data);
     } catch (error) {
       onsole.error("Error fetching data:", error);
     }
@@ -45,13 +47,9 @@ export default function Home() {
   }
 
   useEffect(() => {
-    const moviesUrl = `${apiUrl}now_playing?${apiKey}`;
+    const moviesUrl = PageMovie(CurrentPage);
     getHypeMovies(moviesUrl);
     console.log(getHypeMovies(moviesUrl));
-  }, []);
-
-  useEffect(() => {
-    PageMovie(CurrentPage);
   }, [CurrentPage]);
 
   return (

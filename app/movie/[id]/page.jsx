@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import ParticlesComponent from "@/app/particlesBackground";
+import useFetchMovies from "@/app/hooks/hooks";
 
 export default function AboutMovie() {
   const { id } = useParams();
@@ -17,20 +18,14 @@ export default function AboutMovie() {
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
   const apiImage = process.env.NEXT_PUBLIC_API_IMG;
 
-  const getMovies = async (url) => {
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      setMovie(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
   useEffect(() => {
     const movieUrl = `${apiUrl}${id}?${apiKey}`;
-    getMovies(movieUrl);
-  }, []);
+    const fetchMovieData = async () => {
+      const data = await useFetchMovies(movieUrl);
+      setMovie(data);
+    };
+    fetchMovieData();
+  }, [id]);
 
   const movieExistsInList = () => {
     const movieList = JSON.parse(localStorage.getItem("movieList")) || [];

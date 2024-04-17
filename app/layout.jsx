@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
-import { BiSolidCameraMovie } from "react-icons/bi";
 import Header from "./header";
+import { ThemeProvider } from "./hooks/useContext";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -12,10 +12,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html>
       <body className={`${inter.className} overflow-x-hidden bg-black m-0`}>
-        <Header />
-        {children}
+        <ThemeProvider>
+          <Header />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
