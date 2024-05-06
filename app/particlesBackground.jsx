@@ -137,7 +137,7 @@ const ParticlesComponent = (props) => {
     retina_detect: true,
   }));
 
-  return <Particles id={props.id} init={particlesLoaded} options={options} />;
+  return <Particles id="particles" init={particlesLoaded} options={options} />;
 };
 
 export default ParticlesComponent;

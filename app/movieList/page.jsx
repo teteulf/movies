@@ -27,6 +27,7 @@ export default function MovieList() {
                   size={30}
                   color="red"
                   onClick={() => deleteMovie(element.id)}
+                  className="bg-white rounded-full"
                 />
               </div>
               <MovieCard element={element} />
