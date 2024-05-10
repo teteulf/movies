@@ -6,17 +6,17 @@ import ParticlesComponent from "../particlesBackground";
 import PageNavigation from "../navigation";
 
 export default function SearchMovie() {
-  const { value, currentPage, setCurrentPage } = useSearch();
+  const { value, currentPage, setcurrentPage } = useSearch();
   const inputValue = document.querySelector("#search");
   const textInput = inputValue.value;
 
   const changePagePlusOne = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setcurrentPage((prevPage) => prevPage + 1);
   };
 
   const changePageLessOne = () => {
     if (currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
+      setcurrentPage((prevPage) => prevPage - 1);
     }
   };
 
