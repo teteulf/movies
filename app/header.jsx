@@ -29,7 +29,7 @@ export default function Header() {
           onChange={(event) => setSearchValue(event.target.value)}
           id="search"
           type="text"
-          className="text-white w-[150px] md:mb-0 rounded-xl bg-gray-950 border-2 border-[#0cb7f2]"
+          className="text-white w-[150px] md:mb-0 rounded-xl bg-gray-950 border-2 border-[#0cb7f2] pl-[10px]"
         />
         <Link href={"/search"} className="cursor-pointer">
           <IoSearchCircleOutline

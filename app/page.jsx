@@ -4,18 +4,18 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useState, useEffect } from "react";
 import MovieCard from "./movieCard";
 import ParticlesComponent from "./particlesBackground";
-import { FiTriangle } from "react-icons/fi";
+import PageNavigation from "./navigation";
+import useFetchMovies from "./hooks/hooks";
 
 export default function Home() {
   const [hypeMovies, setHypeMovies] = useState([]);
-  const [CurrentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
   const getHypeMovies = async (url) => {
     try {
-      const res = await fetch(url);
-      const data = await res.json();
+      useFetchMovies(url);
       setHypeMovies(data.results);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -34,31 +34,37 @@ export default function Home() {
     }
   };
 
-  function changePagePlusOne() {
+  const changePagePlusOne = () => {
     setCurrentPage((prevPage) => prevPage + 1);
-  }
+  };
 
-  function changePageLessOne() {
-    if (CurrentPage > 1) {
+  const changePageLessOne = () => {
+    if (currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1);
-    } else {
     }
-  }
+  };
 
   useEffect(() => {
-    const moviesUrl = PageMovie(CurrentPage);
+    const moviesUrl = PageMovie(currentPage);
     getHypeMovies(moviesUrl);
     console.log(getHypeMovies(moviesUrl));
-  }, [CurrentPage]);
+  }, [currentPage]);
 
   return (
     <>
       <ParticlesComponent />
+
+      <dialog className="w-full">
+        <div className="bg-white">teste</div>
+      </dialog>
       <h1 className="text-white flex items-center justify-center my-10 text-[30px]">
         SHOWING "
-        <h2 className="text-[#d9d246] font-bold">RECENTLY MOVIES ON STREAM</h2>"
+        <strong className="text-[rgb(217,210,70)]">
+          CURRENTLY MOVIES ON STREAM
+        </strong>
+        "
       </h1>
-      <div className="flex justify-center items-center pt-6">
+      <div className=" flex justify-center items-center pt-6">
         <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-20 text-center ">
           {hypeMovies && hypeMovies.length === 0 && (
             <div className="w-screen h-screen flex justify-center items-center -mt-[45px]">
@@ -78,26 +84,11 @@ export default function Home() {
             ))}
         </div>
       </div>
-      <div className="flex w-full items-center justify-center gap-10 pb-16 mt-10">
-        <FiTriangle
-          onClick={changePageLessOne}
-          color="#0cb7f2"
-          size={"32px"}
-          className="-rotate-90 cursor-pointer hover:text-[#020203]"
-        >
-          troca pagina
-        </FiTriangle>
-        <p className="text-[#0cb7f2] text-[30px] ">{CurrentPage}</p>
-        <FiTriangle
-          onClick={changePagePlusOne}
-          color="#0cb7f2"
-          size={"32px"}
-          className="rotate-90 cursor-pointer"
-        >
-          {" "}
-          troca pagina
-        </FiTriangle>
-      </div>
+      <PageNavigation
+        currentPage={currentPage}
+        changePagePlusOne={changePagePlusOne}
+        changePageLessOne={changePageLessOne}
+      />
     </>
   );
 }

@@ -7,6 +7,7 @@ const ThemeContext = createContext();
 export function ThemeProvider({ children }) {
   const [searchValue, setSearchValue] = useState("");
   const [value, setValue] = useState([]);
+  const [currentPage, setcurrentPage] = useState(1);
 
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
   const apiUrl = process.env.NEXT_PUBLIC_API_URL_SEARCH;
@@ -18,12 +19,21 @@ export function ThemeProvider({ children }) {
   };
 
   useEffect(() => {
-    const searchUrl = `${apiUrl}/movie?query=${searchValue}&${apiKey}`;
+    const searchUrl = `${apiUrl}/movie?query=${searchValue}&page=${currentPage}&${apiKey}`;
+
     getSearchMovie(searchUrl);
-  }, [searchValue]);
+  }, [searchValue, currentPage]);
 
   return (
-    <ThemeContext.Provider value={{ searchValue, setSearchValue, value }}>
+    <ThemeContext.Provider
+      value={{
+        searchValue,
+        setSearchValue,
+        value,
+        currentPage,
+        setcurrentPage,
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   );

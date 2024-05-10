@@ -60,10 +60,10 @@ export default function AboutMovie() {
       <main className="flex flex-col justify-center items-center">
         <main
           className="flex flex-col rounded-xl bg-slate-950 bg-opacity-60 border-[1.5px] border-[#0cb7f2] 
-            shadow-blue-shadow w-[90%] lg:w-[50%] mt-[2%]"
+            shadow-blue-shadow w-[90%] lg:w-[45%] mt-[2%] pt-8"
         >
           <section className="flex">
-            <div className="flex flex-col w-full items-center gap-4 relative xl:items-start xl:flex-row p-4">
+            <div className="flex flex-col w-full items-center gap-4 relative p-4">
               {Movie && (
                 <img
                   src={`${apiImage}${Movie.poster_path}`}
@@ -71,7 +71,7 @@ export default function AboutMovie() {
                   className="w-[500px] rounded-xl"
                 ></img>
               )}
-              <section className="flex flex-col text-center xl:text-left items-center xl:items-start gap-[12px]">
+              <section className="flex flex-col text-center items-center gap-[12px]">
                 <h1 className="text-white text-[30px] underline font-bold">
                   {Movie && Movie.title}
                 </h1>
@@ -99,7 +99,7 @@ export default function AboutMovie() {
             </div>
           </section>
         </main>
-        <div className="flex flex-col items-center xl:flex-row pb-8 justify-center gap-8 xl:gap-[2%] mt-8 xl:-ml-[20%]">
+        <div className="flex flex-col items-center xl:flex-row pb-8 justify-center gap-8 xl:gap-[2%] mt-8 xl:-ml-[15.5%]">
           <button
             id="addButton"
             onClick={addMovie}
