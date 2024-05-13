@@ -8,6 +8,7 @@ export function ThemeProvider({ children }) {
   const [searchValue, setSearchValue] = useState("");
   const [value, setValue] = useState([]);
   const [currentPage, setcurrentPage] = useState(1);
+  const [pageIntro, setpageIntro] = useState(true);
 
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
   const apiUrl = process.env.NEXT_PUBLIC_API_URL_SEARCH;
@@ -32,6 +33,8 @@ export function ThemeProvider({ children }) {
         value,
         currentPage,
         setcurrentPage,
+        pageIntro,
+        setpageIntro,
       }}
     >
       {children}
