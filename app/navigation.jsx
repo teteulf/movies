@@ -5,10 +5,8 @@ const PageNavigation = ({
   currentPage,
   changePagePlusOne,
   changePageLessOne,
+  hasNextPage,
 }) => {
-
-
-  
   return (
     <div className="flex items-center justify-center gap-10 pb-16 mt-10">
       <FiTriangle
@@ -26,7 +24,9 @@ const PageNavigation = ({
         onClick={changePagePlusOne}
         color="#0cb7f2"
         size={"32px"}
-        className="rotate-90 cursor-pointer"
+        className={`rotate-90 cursor-pointer ${
+          !hasNextPage ? "invisible" : "visible"
+        }`}
       >
         troca pagina
       </FiTriangle>

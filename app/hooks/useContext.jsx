@@ -7,6 +7,7 @@ const ThemeContext = createContext();
 export function ThemeProvider({ children }) {
   const [searchValue, setSearchValue] = useState("");
   const [value, setValue] = useState([]);
+  const [hasNextPage, sethasNextPage] = useState(true);
   const [currentPage, setcurrentPage] = useState(1);
   const [pageIntro, setpageIntro] = useState(true);
 
@@ -17,6 +18,7 @@ export function ThemeProvider({ children }) {
     const getMovie = await fetch(url);
     const data = await getMovie.json();
     setValue(data.results);
+    sethasNextPage(data.results.length > 0);
   };
 
   useEffect(() => {
@@ -35,6 +37,8 @@ export function ThemeProvider({ children }) {
         setcurrentPage,
         pageIntro,
         setpageIntro,
+        hasNextPage,
+        sethasNextPage,
       }}
     >
       {children}
